@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>{% block title %}{% endblock %}</title>
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/static/css/oj.css" rel="stylesheet">
+        {% block css %} {% endblock %}
+        {% block js %} {% endblock %}
+    </head>
+    <body>
+        {% load my_tags %}
+        <div class="navbar-wrapper">
+            <div class="container">
+                <nav class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">Online Judge</a>
+                    </div>
+
+                    <div id="navbar" class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            {% if not request.user.is_authenticated %}
+                                <li id = "nav_register"><a href="/handle/register/">Register</a></li>
+                            {% else %}
+                                <li id = "nav_problemset"><a href="/problemset/">ProblemSet</a></li>
+                                <li id = "nav_course"><a href="/courselist/">Course</a></li>
+                                <li id = "nav_rank"><a href="/rank/">Ranklist</a></li>
+                                <li id = "nav_submission"><a href="/submission/">Submission</a></li>
+                            {% endif %}
+
+                            {% if request.user.is_superuser %}
+                            <div class="pull-left">
+                                <ul class="nav navbar-nav">
+                                    <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> Admin <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="/administrate/addproblem">AddProblem</a></li>
+                                        <li><a href="/administrate/addcourse">AddCourse</a></li>
+                                        <li><a href="/administrate/viewproblemlist">ProblemList</a></li>
+                                        <li><a href="/administrate/viewuserlist">UserList</a></li>
+                                    </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                            {% block nav %} {% endblock %}
+                        </ul>
+
+                        {% if request.user.is_authenticated %}
+                        <div class="pull-right">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"> {{ request.user }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="/handle/profile/{{ request.user }}">Profile</a></li>
+                                    <li><a href="/handle/logout">Logout</a></li>
+                                </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        {% else %}
+                        <form action="/handle/login/" method="POST" class="navbar-form navbar-right">
+                            <div class="form-group">
+                                <input name="username" type="text" placeholder="Username" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <input name="password" type="password" placeholder="Password" class="form-control">
+                            </div>
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="jumbotron">
+            <div class="container">
+                {% block content %} {% endblock %}
+            </div>
+        </div>
+
+        {% block footer %}
+        <hr/>
+        <center><p>Online Judge System</p></center>
+        <center><p>Author: Haihua Li (Sun Yat-sen University) haihua.sysu@gmail.com</p></center>
+        <center><p>Server time: {% currentServerTime %}</p></center>
+        {% endblock %}
+
+        <script src="/static/js/jquery-2.1.3.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    </body>
+</html>

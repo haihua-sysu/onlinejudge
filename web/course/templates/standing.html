@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Submission{% endblock %}
+
+{% block content %}
+{% load my_tags %}
+{% load pagination_tags %}
+<div class="row-fluid">
+	<div class="row-fluid span10">
+		<div class="row-fluid">
+			<h1><center>Submission List</center></h1>
+		</div>
+
+		<div class="row-fluid">
+			<table class = "table table-striped table-bordered table-condensed">
+				<tr>
+					<th>Rank</th>
+					<th>User</th>
+					<th>Solved</th>
+					{% for item in problem %}
+					<th>{{ forloop.counter }}</th>
+					{% endfor %}
+				</tr>
+				{% for item in rankList %}
+				<tr>
+					<td>{{ forloop.counter }}</td>
+					<td>{% getArrayElement item 0 %}</td>
+					<td>{% getArrayElement item 1 %}</td>
+					{% for p in problem %}
+					<td>{% getStatus item p statistics%}</td>
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+
+	<div class="row-fluid span2">
+		<div class="tableable tabs-left">
+			<ul class="nav pull-right nav-tabs nav-stacked" style="margin-top:60px;">
+				<li class="nav_bar {% active request '^/contest/\d+/\d+$' %}" id="nav_contestProblem"><a href="/contest/{{ contest.cid }}">Problem</a></li>
+				<li class="nav_bar {% active request '^/contest/\d+/submission' %}" id="nav_contestSubmission"><a href="/contest/{{ contest.cid }}/submission">Submission</a></li>
+				<li class="nav_bar {% active request '^/contest/\d+/standing' %} " id="nav_contestStanding"><a href="/contest/{{ contest.cid }}/standing">Standing</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

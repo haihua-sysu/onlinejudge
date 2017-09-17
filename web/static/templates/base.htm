@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+    <script src="/static/js/bootstrap.min.js"></script>
+
+    {% block css %} {% endblock %}
+    {% block js %} {% endblock %}
+</head>
+
+<body>
+    {% load my_tags %}
+    <div class="container-fluid">
+        <div class="row-fluid well">
+            <div class="span12">
+                <div class="tableable tabs-left">
+                    <ul class="nav pull-left nav-tabs nav-stacked" style="margin-top:60px;">
+                        {% if request.user.is_authenticated %}
+                            <li class="nav_bar" id="nav_profile">
+                                <a href="/handle/profile/{{ request.user }}">{{ request.user }}</a>
+                            </li>
+                            <li class="nav_bar" id="nav_logout">
+                                <a href="/handle/logout/">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="nav_bar {% active request '^/handle/login.*' %}" id="nav_login">
+                                <a href="/handle/login/">Login</a>
+                            </li>
+                            <li class="nav_bar {% active request '^/handle/register.*' %}" id="nav_register">
+                                <a href="/handle/register/">Register</a>
+                            </li>
+                        {% endif %}
+
+                        <hr />
+                        <li class="nav_bar {% active request '^/$' %}" id="nav_index"><a href="/">Index</a></li>
+                        <li class="nav_bar {% active request '^/problemset/.*' %}" id="nav_problemset"><a href="/problemset/">Problemset</a></li>
+                        <li class="nav_bar {% active request '^/submission/.*' %} " id="nav_submission"><a href="/submission/">Submission</a></li>
+                        <li class="nav_bar {% active request '^/contest/.*' %} " id="nav_contest"><a href="/contest/">Contest</a></li>
+                        <li class="nav_bar {% active request '^/rank/.*' %} " id="nav_rank"><a href="/rank/">Ranklist</a></li>
+                        <hr/>
+                        <li class="nav_bar {% active request '^/administrate/addproblem/$' %}" id="nav_addproblem"><a href="/administrate/addproblem">AddProblem</a></li>
+                        <li class="nav_bar  {% active request '^/administrate/viewproblemlist/\d+$' %}" id="nav_viewproblem"><a href="/administrate/viewproblemlist/">ViewProblem</a></li>
+                        <li class="nav_bar  {% active request '^/administrate/addcontest/$' %}" id="nav_addcontest"><a href="/administrate/addcontest/">AddContest</a></li>
+                    </ul>
+                </div>
+
+                <div id="page_content" class="tab-content" >
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+
+        {% block footer %}
+        <hr>
+        <center><p>Untitled OJ</p></center>
+        {% endblock %}
+    </body>
+</html>

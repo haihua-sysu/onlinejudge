@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ note.pid.title }} Note{% endblock %}
+
+{% block content %}
+<div class="row-fluid">
+    <center><h2>{{ note.pid.title }} Note</h2></center>
+</div>
+
+<div class="row-fluid">
+    <form class="form-horizontal" style="margin-top:20px;" action="/problemset/note/{{ note.pid.pid }}" method="POST">
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-8">
+                <textarea class="form-control" rows="20" name="note">{{ note.content }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

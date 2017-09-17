@@ -1,0 +1,49 @@
+.problem{
+    font-size: medium;
+    background-color: #DCEAF4;
+    border: 1px solid #CCCCCC;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 20px;
+}
+
+.problem-description{
+    font-weight: bold;
+    font-size: large;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.problem-title{
+    font-size: x-large; 
+    text-align: center;
+}
+
+.problem-body{
+    padding: 10px;
+}
+
+.problem-input-specification{
+    padding: 10px;
+}
+
+.problem-output-specification{
+    padding: 10px;
+}
+
+.problem-sample-tests{
+    padding: 10px;
+}
+
+.problem-input{
+}
+
+.problem-output{
+    margin-bottom:30px;
+}
+
+.problem-section-title{
+    font-weight: bold;
+    font-size: large;
+}

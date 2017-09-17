@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block css %} 
+<link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form class="form-horizontal" style="margin-top:20px;" method="POST">
+
+        <div class="form-group">
+            <label for="Title" class="col-sm-2 control-label">Username</label>
+
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="username" value="{{handle.user.username}}" readonly>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">realName</label>
+            <div class="col-sm-4">
+                <input type="text" name="realname" class="form-control" value="{{handle.realname}}" required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="orginalpassword" class="form-control" placeholder="Orginal Password" required autofocus>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Changed Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="password1" class="form-control" placeholder="No required if you don't chagne password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Confirm Password</label>
+            <div class="col-sm-4">
+                <input type="password" name="password2" class="form-control" placeholder="No required if you don't chagne password">
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-4">
+                <input type="email" name="email" id="inputEmail" class="form-control" value="{{handle.user.email}}" required>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">signature</label>
+            <div class="col-sm-4">
+                <input type="text" name="signature" class="form-control" value="{{handle.signature}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">grade</label>
+            <div class="col-sm-4">
+                <input type="text" name="grade" class="form-control" value="{{handle.grade}}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">school</label>
+            <div class="col-sm-4">
+                <input type="text" name="school" class="form-control" value="{{handle.school}}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">headURL</label>
+            <div class="col-sm-4">
+                <input type="text" name="headurl" class="form-control" value="{{handle.headurl}}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+{% endblock %}

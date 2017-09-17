@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %} Edit {{ title }}{% endblock %}
+
+{% block css %} 
+<link href="/static/css/addproblem.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{{ errors }}
+<div class="row-fluid">
+    <center><h2> {{ title }} </h2></center>
+</div>
+
+<div class="row-fluid">
+    <form class="form-horizontal" style="margin-top:20px;" action="/administrate/edit/{{ problem.pid }}" enctype="multipart/form-data" method="POST">
+        <div class="form-group">
+            <label for="Title" class="col-sm-2 control-label">Problem Title</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="title" value="{{ problem.title }}" placeholder="ProblemTitle" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Tag" class="col-sm-2 control-label">Problem Tag</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="tag" value="{{ tags }}" placeholder="Problem Tag, split by english comma ">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="time_limit" class="col-sm-2 control-label">Time Limit (ms)</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" name="time_limit" value="{{ problem.time_limit }}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="memory_limit" class="col-sm-2 control-label">Memory Limit (MB)</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" name="memory_limit" value="{{ problem.memory_limit }}" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="problem_description" class="col-sm-2 control-label">Problem Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="10" name="problem_description" required>{{ problem.problem_description }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input_description" class="col-sm-2 control-label">Input Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" name="input_description" >{{ problem.input_description }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="output_description" class="col-sm-2 control-label">Output Description</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="5" name="output_description">{{ problem.output_description }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input_sample" class="col-sm-2 control-label">Input Sample</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="8" name="input_sample">{{ problem.input_sample }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="output_sample" class="col-sm-2 control-label">Output Sample</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="8" name="output_sample">{{ problem.output_sample }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="hint" class="col-sm-2 control-label">Hint</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" rows="3" name="hint">{{ problem.hint }}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="source" class="col-sm-2 control-label">Source</label>
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="source" value="{{ problem.source }}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="InputFile" class="col-sm-2 control-label">InputFiles</label>
+            <div class="col-sm-2 btn btn-success fileinput-button" style="margin-left:15px">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Input files.....</span>
+                <input type="file" class="form-control" name="inputfiles" multiple>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="OutputFile" class="col-sm-2 control-label">OutputFiles</label>
+            <div class="col-sm-2 btn btn-success fileinput-button" style="margin-left:15px">
+                <i class="glyphicon glyphicon-plus"></i>
+                <span>Add Output files...</span>
+                <input type="file" class="form-control" name="outputfiles" multiple>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

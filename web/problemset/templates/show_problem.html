@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+
+{% block css %} <link href="/static/css/problem.css" rel="stylesheet"> {% endblock %}
+{% block js %} 
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block title %}{{ problem.title }}{% endblock %}
+
+{% block content %}
+{% load disqus_tags %}
+<!-- 提交源代码 -->
+<form action="/submission/submit/" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="pid" value="{{ problem.pid }}" />
+    <input type="hidden" name="cid" value="0" />
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div style="font-size:20px;text-align:center">{{ problem.title }}</div>
+                    <div style="font-size:14px">
+                        Language: <select name="language" style="font-size:12px; margin-top:8px; height:25px; width:100px;">
+                            <option value=0>Pascal</option>
+                            <option value=1>C++</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-body">
+                    <div class="source">
+                        <textarea name="code" style="font-size: 14px; width:97%; height:400px; background-color: #DCEAF4; font-family: Courier New, Courier, monospace;"></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="text-align:center;">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Cancle</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<!-- 提交源代码 -->
+
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="col-md-1"></div>
+
+        <div class="col-md-10">
+            <div class="row-fluid">
+                <div style="text-align:center">
+                    <h2>{{ problem.title }}</h2>
+                    <div>
+                        <strong>Time Limit:</strong>{{ problem.time_limit }}ms &nbsp&nbsp&nbsp<strong>Memory Limit:</strong>{{ problem.memory_limit }}KB &nbsp&nbsp&nbsp<strong>64bit IO Format:</strong> %lld
+                    </div>
+                </div>
+
+                <div style="text-align:center; margin-top:10px">
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal">Submit</button>
+                    <a href="/submission/status/{{ problem.pid }}"> <button type="button" class="btn btn-primary btn-sm">Status</button> </a>
+                    <a href="/submission/userstatus/{{ problem.pid }}"> <button type="button" class="btn btn-primary btn-sm">My Status</button> </a>
+
+		   {% if request.user.is_superuser %}
+		   <a href="/administrate/edit/{{ problem.pid }}"> <button type="button" class="btn btn-primary btn-sm">Edit</button> </a>
+		   {% endif %}
+                </div>
+            </div>
+
+            <br />
+
+            <div class="row-fluid">
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Description</h4>
+                        </legend>
+
+                        <div class="content">
+                            {% autoescape off %}
+                            {{ problem.problem_description}}
+                            {% endautoescape %}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Input</h4>
+                        </legend>
+                        <div class="content">
+                            {% autoescape off %}
+                            {{ problem.input_description | linebreaks}}
+                            {% endautoescape %}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Output</h4>
+                        </legend>
+                        <div class="content">
+                            {% autoescape off %}
+                            {{ problem.output_description | linebreaks}}
+                            {% endautoescape %}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+
+            <div class="row-fluid">
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Sample Input</h4>
+                        </legend>
+                        <div class="content">
+                            {{ problem.input_sample | linebreaks}}
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Sample Output</h4>
+                        </legend>
+                        <div class="content">
+                            {{ problem.output_sample | linebreaks}}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="row-fluid">
+                <div class="well">
+                    <fieldset>
+                        <legend>
+                            <h4>Hint</h4>
+                        </legend>
+                        <div class="content">
+                            {{ problem.Hint | linebreaks}}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-1"></div>
+    </div>
+
+    <hr/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    {% disqus_show_comments %}
+</div> 
+{% endblock %}

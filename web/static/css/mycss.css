@@ -1,0 +1,9 @@
+.optbutton {
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.custombutton {
+    min-width: 150px;
+    max-width: 150px;
+}

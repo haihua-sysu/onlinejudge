@@ -1,0 +1,59 @@
+$def with(status_list)
+$:render.header()
+$:render.navigation('status')
+<div>
+	<h1><center>Status List</center></h1>
+	<!-- 提交筛选状态 -->
+	<form class="form-inline" action="/status" style="margin-bottom:5px">
+		<input type="text" name="USER" class="input-small" placeholder="User">
+		<input type="text" name="PROBLEM" class="input-small" placeholder="Problem">
+		<select name="RESULT" style="width:150px">
+			<option value ="ALL">Result</option>
+			<option value ="AC">Accepted</option>
+			<option value ="WA">Wrong Answer</option>
+			<option value ="TLE">Time Limit Exceeded</option>
+			<option value ="RTE">Run Time Error</option>
+		</select>
+		<select name="LANGUAGE" style="width:100px">
+			<option value ="ALL">Language</option>
+			<option value ="C++">C++</option>
+			<option value ="C">C</option>
+			<option value ="Java">Java</option>
+			<option value ="Python">Python</option>
+		<select>
+		<button type="submit" class="btn">Search</button>
+	</form>
+	<!-- 提交筛选状态 -->
+
+	<table class="table table-hover status">
+		<tr>
+			<th>Run ID</th>
+			<th>User</th>
+			<th>Problem</th>
+			<th>Result</th>
+			<th>Memory</th>
+			<th>Time</th>
+			<th>Language</th>
+			<th>Code Length</th>
+			<th>Submit Time</th>
+		</tr>
+		$for item in status_list:
+			$ result = 'pending'
+			$if item.result == 'Accepted':
+				$ result = 'success'
+			$elif item.ispending != 1:
+				$ result = 'error'
+			<tr class="$result">
+				<td>$item.runid</td>
+				<td>$item.handle</td>
+				<td><a href="/problem/$item.problemid">$item.problemid</a></td>
+				<td><a href="/viewsource/$item.runid">$item.result</td></a>
+				<td>$item.memory KB</td>
+				<td>$item.runtime ms</td>
+				<td>$item.language</td>
+				<td>$item.codelen B</td>
+				<td>$item.submittime</td>
+			</tr>
+	</table>
+</div>
+$:render.footer()

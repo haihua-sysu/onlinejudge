@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}{{ username }}{% endblock %}
+
+{% block content %}
+
+<div class="container" style="margin-top:80px">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ user.username }}</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-3" align="center"> <img alt="User Pic" src="{{headurl}}" class="img-circle" width="120"> </div>
+
+                        <div class=" col-md-9 col-lg-9 "> 
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>Username:</td>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>RealName</td>
+                                        <td>{{ user.realname }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Signature</td>
+                                        <td>{{ user.signature | default:"N/A"}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Solved</td>
+                                        <td>{{ user.solved | default:0 }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <tr>
+                                            <td>Submited</td>
+                                            <td>{{ user.submited | default:0 }}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>Grade</td>
+                                            <td>{{ user.grade | default:"N/A"}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>School</td>
+                                            <td>{{ user.school | default:"N/A"}}</td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Email</td>
+                                            <td><a href="mailto:info@support.com">{{ email }}</a></td>
+                                        </tr>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            {% if request.user.username == username %}
+                            <a href="/handle/editprofile/" class="btn btn-primary">Edit Profile</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="col-md-2">
+        </div>
+
+        <div class="col-md-8">
+            <div class="accordion-group">
+                <div class="accordion-heading">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#problems" data-target="#accepted">
+                        <strong>Problems Solved</strong>
+                    </a>
+                </div>
+
+                <div id="accepted" class="accordion-body in collapse" style="height: auto;">
+                    <div class="accordion-inner">
+                    {% for each in solved_problems %}
+                        <span class="badge">
+                            <a href="/problemset/problem/{{ each.pid }}" style="color:white">{{ each.pid }}</a>
+                        </span>
+                    {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+        </div>
+    </div>
+
+</div>
+{% endblock %}
