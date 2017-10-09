@@ -14,6 +14,4 @@ you could config the db engine in `untitle_oj/settings.py`. Excatually, the judg
 to mysql.
 
 After migrated the db, uses `python manager.py runserver` to run the webserver. The default hostname is `127.0.0.1` and the port is `8000`, you will see the successful
-message from the terminal.
-
-The first registered user is admin.
+message from the terminal. Screenshoot should look like: ![oj.jpg](oj.jpg)
