@@ -28,7 +28,7 @@ def register_user(request, form):
         return 'User %s is exist alreadly' % username
     except User.DoesNotExist:
         user = User.objects.create_user(username = username, email = email, password = password1)
-        user.is_active = False
+        user.is_active = True
         user.save()
         newHandle = Handle(
             user = user,
@@ -37,6 +37,9 @@ def register_user(request, form):
             realname = form.cleaned_data['realname'],
         )
         newHandle.save()
+        if newHandle.id == 1:
+            newHandle.user.is_superuser = True
+            newHandle.user.save()
         return None
     return 'unknown error'
 

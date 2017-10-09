@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'untitled_oj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'onlinejudge',
         'USER': 'dbuser',
         'PASSWORD': 'password',
-        'HOST': 'hostname',
+        'HOST': '',
         'PORT': '',
     }
 }
